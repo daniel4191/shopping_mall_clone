@@ -1,0 +1,76 @@
+/* --- 기본 초기화 --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Pretendard', sans-serif; color: #333; }
+a { text-decoration: none; color: inherit; }
+ul, li { list-style: none; }
+
+.layout-container { padding-left: 148.5px; padding-right: 148.5px; width: 100%; }
+
+/* --- 헤더 및 GNB --- */
+.header-top { height: 86px; margin-top: 24px; display: flex; justify-content: space-between; align-items: center; }
+.logo { width: 96px; height: 45.71px; font-size: 24px; font-weight: 900; letter-spacing: -1px; display: flex; align-items: center; }
+.logo span { color: #000; }
+.logo span.green { color: #81D653; margin-left: 2px; }
+.right-box { width: 472px; height: 100%; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end; }
+.top-links { display: flex; gap: 20px; font-size: 13px; color: #666; margin-top: 5px; }
+.bottom-actions { display: flex; align-items: center; gap: 20px; }
+.search-bar { width: 232px; height: 54px; position: relative; background-color: #f4f4f4; border-radius: 27px; }
+.search-bar input { width: 100%; height: 100%; border: none; background: transparent; padding-left: 24px; padding-right: 54px; font-size: 15px; outline: none; }
+.search-icon { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); width: 30px; height: 30px; font-size: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.icon-group { display: flex; gap: 20px; }
+.icon-item { width: 30px; height: 30px; font-size: 28px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.gnb-area { display: flex; align-items: center; }
+.category-btn { position: relative; height: 30px; padding-left: 42px; margin-right: 15px; display: flex; align-items: center; font-weight: bold; font-size: 16px; cursor: pointer; white-space: nowrap; }
+.hamburger-icon { position: absolute; left: 0; top: 50%; transform: translateY(-50%); font-size: 24px; }
+.separator { width: 1px; height: 14px; background-color: #ddd; margin-right: 15px; }
+.menu-list { display: flex; }
+.menu-item { padding: 28px 15px 29px 15px; font-size: 16px; font-weight: bold; cursor: pointer; color: #000; }
+
+/* ============================
+   ★ 수정된 검색 드롭다운 스타일 ★
+   ============================ */
+.search-container {
+    position: relative;
+}
+
+.search-dropdown {
+    /* ★ 핵심 수정: 여기서 display: flex를 제거했습니다. */
+    display: none; 
+    
+    position: absolute;
+    top: 60px;
+    right: -50px;
+    width: 500px;
+    height: 600px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    z-index: 1000;
+    overflow: hidden;
+}
+
+/* 왼쪽: 최근 검색어 */
+.recent-area {
+    flex: 1;
+    padding: 30px;
+    border-right: 1px solid #eee;
+}
+
+/* 오른쪽: 인기 검색어 */
+.popular-area {
+    flex: 1;
+    padding: 30px;
+    background-color: #fff;
+}
+
+.dropdown-title { font-size: 16px; font-weight: bold; margin-bottom: 20px; display: block; }
+.empty-msg { color: #999; font-size: 14px; margin-top: 50px; text-align: center; }
+.keyword-list { display: flex; flex-wrap: wrap; gap: 10px; }
+.keyword-tag { background-color: #f4f4f4; padding: 8px 16px; border-radius: 20px; font-size: 14px; font-weight: 500; color: #333; cursor: pointer; transition: background 0.2s; }
+.keyword-tag:hover { background-color: #e0e0e0; }
+
+/* ★ active 클래스가 붙으면 그때 flex로 변해서 보임 */
+.search-dropdown.active {
+    display: flex;
+}
