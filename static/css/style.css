@@ -1,76 +1,386 @@
-/* --- 기본 초기화 --- */
+/* =========================================
+   1. 기본 초기화 (Reset & Common)
+   ========================================= */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Pretendard', sans-serif; color: #333; }
+body { 
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif; 
+    color: #333; 
+    overflow-x: hidden; /* 가로 스크롤 방지 */
+}
 a { text-decoration: none; color: inherit; }
 ul, li { list-style: none; }
+button { border: none; background: none; cursor: pointer; font-family: inherit; }
 
-.layout-container { padding-left: 148.5px; padding-right: 148.5px; width: 100%; }
+/* ★ 레이아웃 핵심: 반응형 컨테이너 
+   - Navbar와 Footer가 이 클래스를 공유하여 라인을 맞춥니다.
+   - 화면 크기에 따라 좌우 여백이 자동으로 조절됩니다.
+*/
+.layout-container { 
+    width: 100%; 
+    max-width: 1920px; /* 너무 커지는 것 방지 */
+    margin: 0 auto;
+    padding-left: 148.5px; 
+    padding-right: 148.5px; 
+}
 
-/* --- 헤더 및 GNB --- */
-.header-top { height: 86px; margin-top: 24px; display: flex; justify-content: space-between; align-items: center; }
-.logo { width: 96px; height: 45.71px; font-size: 24px; font-weight: 900; letter-spacing: -1px; display: flex; align-items: center; }
-.logo span { color: #000; }
+/* =========================================
+   2. 헤더 및 GNB (Navbar)
+   ========================================= */
+.header-top { 
+    height: 86px; 
+    margin-top: 24px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.logo { width: 96px; font-size: 24px; font-weight: 900; letter-spacing: -1px; display: flex; align-items: center; }
 .logo span.green { color: #81D653; margin-left: 2px; }
-.right-box { width: 472px; height: 100%; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end; }
+
+.right-box { display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end; height: 100%; }
 .top-links { display: flex; gap: 20px; font-size: 13px; color: #666; margin-top: 5px; }
 .bottom-actions { display: flex; align-items: center; gap: 20px; }
+
+/* 검색창 */
+.search-container { position: relative; }
 .search-bar { width: 232px; height: 54px; position: relative; background-color: #f4f4f4; border-radius: 27px; }
 .search-bar input { width: 100%; height: 100%; border: none; background: transparent; padding-left: 24px; padding-right: 54px; font-size: 15px; outline: none; }
 .search-icon { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); width: 30px; height: 30px; font-size: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+
+/* 아이콘 그룹 */
 .icon-group { display: flex; gap: 20px; }
 .icon-item { width: 30px; height: 30px; font-size: 28px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-.gnb-area { display: flex; align-items: center; }
-.category-btn { position: relative; height: 30px; padding-left: 42px; margin-right: 15px; display: flex; align-items: center; font-weight: bold; font-size: 16px; cursor: pointer; white-space: nowrap; }
-.hamburger-icon { position: absolute; left: 0; top: 50%; transform: translateY(-50%); font-size: 24px; }
-.separator { width: 1px; height: 14px; background-color: #ddd; margin-right: 15px; }
-.menu-list { display: flex; }
-.menu-item { padding: 28px 15px 29px 15px; font-size: 16px; font-weight: bold; cursor: pointer; color: #000; }
 
-/* ============================
-   ★ 수정된 검색 드롭다운 스타일 ★
-   ============================ */
-.search-container {
-    position: relative;
-}
-
+/* 검색 드롭다운 */
 .search-dropdown {
-    /* ★ 핵심 수정: 여기서 display: flex를 제거했습니다. */
-    display: none; 
-    
-    position: absolute;
-    top: 60px;
-    right: -50px;
-    width: 500px;
-    height: 600px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 20px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    z-index: 1000;
-    overflow: hidden;
+    display: none; /* 기본 숨김 */
+    position: absolute; top: 60px; right: -50px;
+    width: 500px; height: 600px;
+    background-color: #fff; border: 1px solid #ddd; border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1); z-index: 1000; overflow: hidden;
 }
-
-/* 왼쪽: 최근 검색어 */
-.recent-area {
-    flex: 1;
-    padding: 30px;
-    border-right: 1px solid #eee;
-}
-
-/* 오른쪽: 인기 검색어 */
-.popular-area {
-    flex: 1;
-    padding: 30px;
-    background-color: #fff;
-}
-
+.search-dropdown.active { display: flex; }
+.recent-area { flex: 1; padding: 30px; border-right: 1px solid #eee; }
+.popular-area { flex: 1; padding: 30px; background-color: #fff; }
 .dropdown-title { font-size: 16px; font-weight: bold; margin-bottom: 20px; display: block; }
 .empty-msg { color: #999; font-size: 14px; margin-top: 50px; text-align: center; }
 .keyword-list { display: flex; flex-wrap: wrap; gap: 10px; }
 .keyword-tag { background-color: #f4f4f4; padding: 8px 16px; border-radius: 20px; font-size: 14px; font-weight: 500; color: #333; cursor: pointer; transition: background 0.2s; }
 .keyword-tag:hover { background-color: #e0e0e0; }
 
-/* ★ active 클래스가 붙으면 그때 flex로 변해서 보임 */
-.search-dropdown.active {
+/* GNB 메뉴바 (Sticky) */
+.gnb-area { 
+    display: flex; 
+    align-items: center; 
+    height: 60px;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    position: sticky; /* 스크롤 시 상단 고정 */
+    top: 0;
+    z-index: 900;
+}
+.category-btn { position: relative; padding-left: 42px; margin-right: 15px; display: flex; align-items: center; font-weight: bold; font-size: 16px; cursor: pointer; white-space: nowrap; height: 100%; }
+.hamburger-icon { position: absolute; left: 0; top: 50%; transform: translateY(-50%); font-size: 24px; }
+.separator { width: 1px; height: 14px; background-color: #ddd; margin-right: 15px; }
+.menu-list { display: flex; gap: 30px; }
+.menu-item { font-size: 16px; font-weight: bold; cursor: pointer; color: #000; white-space: nowrap; }
+
+
+/* =========================================
+   3. Footer 영역 스타일 (완전 수정)
+   ========================================= */
+.site-footer {
+    background-color: #000; /* 전체 배경 검정 */
+    color: #999;
+    font-size: 13px;
+    padding-top: 60px;
+    margin-top: 100px;
+}
+
+/* Footer 내부 레이아웃 (Grid/Flex 대체) */
+.footer-content {
     display: flex;
+    justify-content: space-between; /* 양 끝 정렬 */
+    padding-bottom: 40px;
+    flex-wrap: wrap; /* 화면 작으면 줄바꿈 */
+    gap: 40px;
+}
+
+/* 왼쪽: 로고 + 사업자 정보 */
+.footer-left {
+    flex: 1; /* 남은 공간 차지 */
+    min-width: 300px; /* 최소 너비 보장 */
+}
+
+.footer-logo {
+    display: flex; align-items: center; gap: 10px;
+    color: #fff; font-size: 24px; font-weight: bold;
+    margin-bottom: 24px;
+}
+.sns-icons { display: flex; gap: 10px; font-size: 20px; }
+
+.info-links { display: flex; gap: 15px; margin-bottom: 16px; color: #fff; flex-wrap: wrap; }
+address {
+    font-style: normal; line-height: 1.6; color: #888;
+}
+address a { text-decoration: underline; }
+
+/* 오른쪽: 고객센터 */
+.footer-right {
+    text-align: right;
+    min-width: 250px;
+}
+.cs-number {
+    display: block; font-size: 32px; font-weight: bold; color: #fff; margin-bottom: 8px;
+    pointer-events: none; /* PC: 클릭 불가 */
+}
+.cs-link { display: block; margin-bottom: 8px; font-size: 14px; }
+.cs-time { font-size: 12px; color: #888; margin-bottom: 20px; }
+.cs-buttons { display: flex; justify-content: flex-end; gap: 8px; }
+.cs-buttons button {
+    border: 1px solid #555; color: #fff; padding: 8px 20px; border-radius: 20px; transition: 0.2s;
+}
+.cs-buttons button:hover { border-color: #fff; }
+
+/* 하단 인증 마크 */
+.footer-lower { border-top: 1px solid #333; padding: 30px 0; }
+.cert-logos { display: flex; gap: 20px; flex-wrap: wrap; color: #666; font-size: 12px; }
+
+/* Top 버튼 */
+#scrollTopBtn {
+    position: fixed; bottom: 30px; right: 30px;
+    width: 48px; height: 48px;
+    background-color: #fff; border: 1px solid #ddd; border-radius: 50%;
+    font-size: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    z-index: 2000; display: flex; align-items: center; justify-content: center;
+}
+
+
+/* =========================================
+   4. 반응형 (Responsive) - Breakpoints
+   ========================================= */
+
+/* (1) 992px ~ 1440px : 컨테이너 여백 축소 */
+@media screen and (max-width: 1440px) {
+    .layout-container { padding-left: 60px; padding-right: 60px; }
+}
+
+/* (2) Tablet (768px ~ 992px) */
+@media screen and (max-width: 992px) {
+    .layout-container { padding-left: 40px; padding-right: 40px; }
+    
+    /* Footer: 세로 배치로 변경 */
+    .footer-content { flex-direction: column; text-align: center; gap: 50px; }
+    .footer-left { width: 100%; align-items: center; }
+    .footer-logo { justify-content: center; }
+    .info-links { justify-content: center; }
+    
+    .footer-right { text-align: center; width: 100%; }
+    .cs-buttons { justify-content: center; }
+}
+
+/* (3) Mobile ( ~ 768px) */
+@media screen and (max-width: 768px) {
+    .layout-container { padding-left: 20px; padding-right: 20px; }
+
+    /* Header: 구조 단순화 */
+    .header-top { height: auto; flex-direction: column; gap: 15px; margin-top: 15px; margin-bottom: 15px;}
+    .right-box { width: 100%; align-items: center; gap: 10px;}
+    .search-bar { width: 100%; }
+    .top-links { display: none; } /* 상단 링크 숨김 */
+    
+    /* GNB: 메뉴 숨김 처리 (추후 JS로 햄버거 메뉴 구현 필요) */
+    .menu-list { display: none; } 
+    .gnb-area { justify-content: space-between; }
+    
+    /* Footer: 전화번호 클릭 가능하게 변경 */
+    .cs-number { pointer-events: auto; text-decoration: underline; color: #81D653; }
+}
+
+/* (4) Small Mobile ( ~ 320px) */
+@media screen and (max-width: 320px) {
+    .layout-container { padding-left: 15px; padding-right: 15px; }
+    .footer-logo span.logo-text { font-size: 20px; }
+    .cs-number { font-size: 24px; }
+}
+
+.section-container {
+    width: 1280px;
+    margin: 0 auto;
+    margin-bottom: 80px; /* 섹션 간 간격 */
+    position: relative;
+}
+.section-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    height: 40px; /* 요청하신 제목 높이 */
+    display: flex; align-items: center;
+}
+.no-data {
+    width: 100%; padding: 50px; text-align: center; color: #999; background: #f8f8f8;
+}
+
+/* 1. 메인 배너 (1920x576) */
+.main-banner-section {
+    width: 100%;
+    max-width: 1920px;
+    height: 576px;
+    margin: 0 auto;
+    background-color: #eee;
+    overflow: hidden;
+}
+.banner-img {
+    width: 100%; height: 100%;
+    background-position: center; background-size: cover;
+}
+.banner-placeholder {
+    display: flex; justify-content: center; align-items: center;
+    height: 100%; font-size: 24px; color: #aaa;
+}
+
+/* 2. 이벤트 아이콘 바 (1920x122) */
+.event-icon-bar {
+    width: 100%; max-width: 1920px;
+    height: 122px; margin: 0 auto 50px;
+    background-color: #fff; border-bottom: 1px solid #eee;
+    display: flex; justify-content: center; align-items: center;
+}
+.icon-container {
+    display: flex; gap: 48px; /* 요청하신 gap */
+}
+.icon-item {
+    width: 96px; height: 122px;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    gap: 10px; cursor: pointer;
+}
+.icon-circle {
+    width: 60px; height: 60px; background: #f4f4f4; border-radius: 50%;
+}
+
+/* 3. NEW & HOT */
+.new-hot-grid {
+    display: flex; gap: 20px; height: 1180px; /* 전체 높이 */
+    flex-wrap: wrap; align-content: flex-start;
+}
+.nh-main-banner {
+    width: 572px; height: 336px;
+    overflow: hidden; border-radius: 10px;
+}
+.nh-main-banner img { width: 100%; height: 100%; object-fit: cover; }
+
+.nh-product-list {
+    display: grid; 
+    grid-template-columns: 1fr 1fr; /* 2열 */
+    gap: 20px;
+    width: calc(100% - 592px); /* 1280 - 572 - 20 */
+}
+.nh-product-item {
+    height: 176px; display: flex; gap: 15px;
+    background: #fff; border: 1px solid #eee;
+    align-items: center; padding: 10px;
+}
+.nh-product-item img { width: 120px; height: 120px; object-fit: cover; }
+
+/* 4. 베스트 리뷰 */
+.review-grid {
+    display: flex; gap: 20px;
+}
+.review-card {
+    flex: 1; height: 200px; border: 1px solid #eee; padding: 20px;
+    display: flex; gap: 15px;
+}
+.review-card .prod-thumb img { width: 80px; height: 80px; background: #ddd; }
+
+/* 5. Best Pick */
+.bp-categories {
+    width: 1184px; height: 43px; margin-bottom: 20px;
+}
+.bp-categories ul { display: flex; gap: 10px; }
+.bp-categories li {
+    padding: 10px 20px; border-radius: 20px; background: #f4f4f4; cursor: pointer;
+}
+.bp-categories li.active { background: #333; color: #fff; }
+
+.bp-products-area {
+    position: relative; width: 100%; height: 489px;
+    display: flex; align-items: center; justify-content: center;
+}
+.bp-product-list {
+    width: 1280px; display: flex; gap: 20px;
+}
+.bp-item {
+    width: 200px; /* 5개 균등분할 예시 */
+    display: flex; flex-direction: column;
+}
+.bp-item .img-box {
+    position: relative; width: 100%; height: 250px; background: #f4f4f4; margin-bottom: 10px;
+}
+.rank-badge {
+    position: absolute; top: 0; left: 0; 
+    width: 40px; height: 40px; background: #000; color: #fff; 
+    display: flex; justify-content: center; align-items: center; font-weight: bold;
+}
+.nav-btn {
+    width: 40px; height: 40px; background: #fff; border: 1px solid #ddd; border-radius: 50%;
+    position: absolute; top: 50%; transform: translateY(-50%); cursor: pointer;
+}
+.nav-btn.prev { left: -60px; }
+.nav-btn.next { right: -60px; }
+
+/* 6. 이벤트 페이지 */
+.event-grid {
+    display: flex; gap: 32px; /* Margin 32 */
+}
+.event-card {
+    width: 576px; height: 400px;
+    display: flex; flex-direction: column;
+}
+.event-card img { width: 100%; height: 320px; object-fit: cover; margin-bottom: 15px;}
+.evt-title { font-size: 20px; font-weight: bold; margin-bottom: 5px; }
+.evt-date { color: #888; font-size: 14px; }
+
+/* 7. 인스타그램 */
+.insta-grid {
+    display: flex; gap: 16px; margin-bottom: 40px;
+}
+.insta-item {
+    width: 352px; height: 399px; background: #eee; overflow: hidden;
+}
+.insta-item img { width: 100%; height: 100%; object-fit: cover; }
+
+.insta-btn-area {
+    text-align: center;
+    margin-top: 30px;
+}
+.insta-link-btn {
+    display: inline-block;
+    /* 요청하신 계산된 마진 대신 중앙 정렬 사용 (반응형 위해) */
+    width: 190px; height: 48px; /* 패딩 감안한 근사치 */
+    line-height: 48px;
+    border: 2px solid #ddd;
+    border-radius: 24px;
+    font-size: 14px; font-weight: bold;
+    text-align: center;
+    transition: 0.3s;
+}
+.insta-link-btn:hover { background: #f4f4f4; }
+
+/* 8. 하단 배너 (1920x480) */
+.bottom-banner-section {
+    width: 100%; max-width: 1920px; height: 480px;
+    margin: 0 auto;
+    background: #333;
+}
+.bottom-banner-section img { width: 100%; height: 100%; object-fit: cover; }
+
+/* 반응형 예외처리 (간단) */
+@media screen and (max-width: 1280px) {
+    .section-container { width: 100%; padding: 0 20px; }
+    .new-hot-grid, .bp-product-list, .event-grid, .insta-grid {
+        flex-direction: column; height: auto;
+    }
+    .nh-main-banner, .nh-product-list, .event-card, .insta-item {
+        width: 100%;
+    }
 }

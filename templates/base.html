@@ -19,6 +19,14 @@
         {% endblock %}
     </main>
 
+    {% include 'components/footer.html' %}
+
     <script src="{% static 'js/script.js' %}"></script>
+    <script>
+        // Top 버튼 기능
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>

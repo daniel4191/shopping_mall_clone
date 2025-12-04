@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="main-banner-section">
+    {% if top_banner and top_banner.image %}
+        <div class="banner-img" style="background-image: url('{{ top_banner.image.url }}');"></div>
+    {% else %}
+        <div class="banner-placeholder">메인 배너를 등록해주세요.</div>
+    {% endif %}
+</section>
+
+<section class="event-icon-bar">
+    <div class="icon-container">
+        {% for i in "12345" %}
+        <div class="icon-item">
+            <div class="icon-circle"></div>
+            <span>이벤트 {{ forloop.counter }}</span>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section-container new-hot-section">
+    <div class="section-title">NEW & HOT</div>
+    <div class="new-hot-grid">
+        <div class="nh-main-banner">
+            {% if new_hot_banner %}
+                <img src="{{ new_hot_banner.image.url }}" alt="New Hot Main">
+            {% else %}
+                <div class="empty-box">메인 사진 없음</div>
+            {% endif %}
+        </div>
+        <div class="nh-product-list">
+            {% if new_hot_products %}
+                {% for product in new_hot_products %}
+                <div class="nh-product-item">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                    <div class="prod-info">
+                        <p class="name">{{ product.name }}</p>
+                        <p class="price">{{ product.price }}원</p>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="no-data">판매중인 상품이 없습니다.</div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="section-container best-review-section">
+    <div class="section-title">베스트 상품 후기</div>
+    <div class="review-grid">
+        {% if best_reviews %}
+            {% for review in best_reviews %}
+            <div class="review-card">
+                <div class="prod-thumb">
+                    <img src="{{ review.product.image.url }}" alt="">
+                </div>
+                <div class="review-text">
+                    <p class="rating">★ {{ review.rating }}</p>
+                    <p class="content">{{ review.content|truncatechars:50 }}</p>
+                    <p class="author">by {{ review.author_name }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="no-data">작성된 댓글이 없습니다.</div>
+        {% endif %}
+    </div>
+</section>
+
+<section class="section-container best-pick-section">
+    <div class="bp-header">
+        <h2>칠성몰 Best Pick</h2>
+    </div>
+    
+    <div class="bp-categories">
+        {% if categories %}
+            <ul>
+                <li class="active">전체</li>
+                {% for cat in categories %}
+                <li>{{ cat.name }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <div class="no-data">카테고리 없음</div>
+        {% endif %}
+    </div>
+
+    <div class="bp-products-area">
+        <button class="nav-btn prev"><</button>
+        <div class="bp-product-list">
+            {% for product in best_pick_products %}
+            <div class="bp-item">
+                <div class="img-box">
+                    <img src="{{ product.image.url }}" alt="">
+                    <span class="rank-badge">{{ forloop.counter }}</span>
+                </div>
+                <div class="text-box">
+                    <p>{{ product.name }}</p>
+                    <b>{{ product.price }}원</b>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <button class="nav-btn next">></button>
+    </div>
+</section>
+
+<section class="section-container event-section">
+    <div class="section-title">EVENT</div>
+    <div class="event-grid">
+        {% for event in events %}
+        <div class="event-card">
+            <img src="{{ event.image.url }}" alt="{{ event.title }}">
+            <div class="event-info">
+                <p class="evt-title">{{ event.title }}</p>
+                <p class="evt-date">{{ event.start_date }} ~ {{ event.end_date }}</p>
+            </div>
+        </div>
+        {% empty %}
+        <div class="no-data">진행중인 이벤트가 없습니다.</div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section-container insta-section">
+    <div class="section-title">
+        @{{ insta_settings.username|default:"칠성몰" }}
+    </div>
+    
+    <div class="insta-grid">
+        {% if insta_posts %}
+            {% for post in insta_posts %}
+            <a href="{{ post.link_url }}" target="_blank" class="insta-item">
+                <img src="{{ post.image_url }}" alt="insta">
+            </a>
+            {% endfor %}
+        {% else %}
+            <div class="no-data">게시글이 없습니다.</div>
+        {% endif %}
+    </div>
+
+    <div class="insta-btn-area">
+        <a href="https://instagram.com/{{ insta_settings.username }}" target="_blank" class="insta-link-btn">
+            칠성몰 인스타그램 바로가기
+        </a>
+    </div>
+</section>
+
+<section class="bottom-banner-section">
+    {% if bottom_banner and bottom_banner.image %}
+        <img src="{{ bottom_banner.image.url }}" alt="Bottom Banner">
+    {% else %}
+        <div class="banner-placeholder">하단 배너 영역</div>
+    {% endif %}
+</section>
+{% endblock %}
