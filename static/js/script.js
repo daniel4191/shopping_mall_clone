@@ -19,3 +19,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+  // 메인 배너 슬라이드 설정
+  var swiper = new Swiper('.mySwiper', {
+    loop: true, // 무한 반복
+    autoplay: {
+      // 자동 재생 설정
+      delay: 3000, // 3초마다 넘어감
+      disableOnInteraction: false
+    },
+    pagination: {
+      // 하단 점 표시
+      el: '.swiper-pagination',
+      clickable: true
+    }
+  });
+});

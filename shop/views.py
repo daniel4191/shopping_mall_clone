@@ -4,7 +4,8 @@ from django.db.models import Count
 
 def main_view(request):
     # 1. 메인 배너
-    top_banner = MainBanner.objects.filter(location='TOP', is_active=True).last()
+    # top_banner = MainBanner.objects.filter(location='TOP', is_active=True).last()
+    top_banners = MainBanner.objects.filter(location="TOP", is_active=True).order_by('-id')
     
     # 3. NEW & HOT
     new_hot_banner = MainBanner.objects.filter(location='NEWHOT', is_active=True).last()
@@ -29,7 +30,7 @@ def main_view(request):
     bottom_banner = MainBanner.objects.filter(location='BOTTOM', is_active=True).last()
 
     context = {
-        'top_banner': top_banner,
+        'top_banners': top_banners,
         'new_hot_banner': new_hot_banner,
         'new_hot_products': new_hot_products,
         'best_reviews': best_reviews,

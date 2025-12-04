@@ -2,12 +2,25 @@
 {% load static %}
 
 {% block content %}
-<section class="main-banner-section">
-    {% if top_banner and top_banner.image %}
-        <div class="banner-img" style="background-image: url('{{ top_banner.image.url }}');"></div>
-    {% else %}
-        <div class="banner-placeholder">메인 배너를 등록해주세요.</div>
-    {% endif %}
+<section class="main-banner-section swiper mySwiper">
+    <div class="swiper-wrapper">
+        {% if top_banners %}
+            {% for banner in top_banners %}
+            <div class="swiper-slide">
+                {% if banner.image %}
+                    <div class="banner-img" style="background-image: url('{{ banner.image.url }}');"></div>
+                {% else %}
+                    <div class="banner-placeholder">이미지 없음</div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="swiper-slide">
+                <div class="banner-placeholder">메인 배너를 등록해주세요.</div>
+            </div>
+        {% endif %}
+    </div>
+    <div class="swiper-pagination"></div>
 </section>
 
 <section class="event-icon-bar">

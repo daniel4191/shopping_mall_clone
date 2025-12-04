@@ -145,8 +145,13 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 /* (1) 메인 배너 */
 .main-banner-section {
-    width: 100%; max-width: 1920px; height: 576px;
-    margin: 0 auto; background-color: #eee;
+    width: 100%;
+    max-width: 1920px;
+    height: 576px;
+    margin: 0 auto;
+    background-color: #eee;
+    overflow: hidden;       /* ★ 중요: 이미지가 넘치지 않게 함 */
+    position: relative;     /* ★ 중요: 페이지네이션(점) 위치 기준 */
 }
 .banner-img {
     width: 100%; height: 100%;
@@ -326,4 +331,31 @@ address { font-style: normal; line-height: 1.6; color: #777; }
     .gnb-area { justify-content: space-between; }
     
     .cs-number { pointer-events: auto; color: #81D653; text-decoration: underline; }
+}
+
+/* [추가] ★ 이미지 스타일 */
+.banner-img {
+    width: 100%; 
+    height: 100%;
+    background-position: center; 
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* [추가] ★ 모바일 높이 조정 (기존 미디어쿼리 안에 넣거나, 맨 아래 추가) */
+@media screen and (max-width: 768px) {
+    .main-banner-section {
+        height: 100vw; /* 모바일은 정사각형 비율 */
+        max-height: 500px;
+    }
+}
+
+/* [추가] ★ 페이지네이션 점 색상 (흰색으로 변경) */
+.swiper-pagination-bullet {
+    background: #fff;
+    opacity: 0.5;
+}
+.swiper-pagination-bullet-active {
+    opacity: 1;
+    background: #fff;
 }
